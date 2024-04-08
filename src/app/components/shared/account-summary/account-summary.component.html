@@ -12,7 +12,12 @@
     >
   </div>
   <div class="account-actions">
-    <button mat-raised-button type="button" class="nav-button withdraw-button">
+    <button
+      mat-raised-button
+      type="button"
+      class="nav-button withdraw-button"
+      (click)="onClickOnWithdraw()"
+    >
       Retrait
     </button>
     <button mat-raised-button type="button" class="nav-button">Virement</button>
@@ -38,6 +43,9 @@
             }"
             >{{ operation.amount }} €</span
           >
+          <span class="operation-date">{{
+            operation.creationDate.toLocaleString()
+          }}</span>
           <span class="operation-type">{{ operation.type }}</span>
         </div>
       </div>

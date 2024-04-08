@@ -1,0 +1,80 @@
+<div class="withdraw-wrapper">
+  <mat-card>
+    <mat-card-header>
+      <button
+        mat-raised-button
+        type="button"
+        class="cancel-button"
+        (click)="onClickOnDashboard()"
+      >
+        Dashboard
+      </button>
+    </mat-card-header>
+
+    <mat-card-content>
+      <!-- Zone sélection compte -->
+      <div>
+        <mat-form-field>
+          <mat-label>Sélectionnez un compte</mat-label>
+          <mat-select
+            [(value)]="account"
+            [compareWith]="accountComparisonFunction"
+          >
+            <mat-option
+              *ngFor="let accountOption of accounts"
+              [value]="accountOption"
+            >
+              {{ accountOption.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <!-- Compte sélectionné -->
+      <div *ngIf="account" class="withraw-selected-account">
+        <h4 class="account-name">{{ account.name }}</h4>
+        <div class="account-balance">
+          <span>Solde :</span>
+          <span
+            [ngClass]="{
+              'negative-amount': isNegative(account.balance),
+              'positive-amount': !isNegative(account.balance)
+            }"
+            class="account-balance-value"
+            >{{ account.balance }} €</span
+          >
+        </div>
+      </div>
+    </mat-card-content>
+
+    <mat-card-footer>
+      <div>
+        <mat-form-field class="amount-field">
+          <mat-label>Entrez un montant (€)</mat-label>
+          <input
+            matInput
+            [value]="amount"
+            (keyup)="onChangeAmountField($event)"
+          />
+        </mat-form-field>
+        <div *ngIf="!isANumber(amount)" class="error-message">
+          Vous devez saisir une valeur numérique
+        </div>
+        <div *ngIf="overdraftExceeded && account" class="error-message">
+          Vous n'êtes pas autorisé à retirer {{ amount }} € car votre découvert
+          maximal est de {{ account.maxOverdraft }}
+        </div>
+      </div>
+
+      <button
+        mat-raised-button
+        type="button"
+        class="action-button"
+        [disabled]="validationIsDisabled"
+        (click)="onClickOnValidate()"
+      >
+        Valider
+      </button>
+    </mat-card-footer>
+  </mat-card>
+</div>

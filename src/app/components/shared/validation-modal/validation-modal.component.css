@@ -1,0 +1,11 @@
+.dialog-footer {
+  display: flex;
+}
+
+.validation-message {
+  margin-bottom: 2em;
+}
+
+.action-button {
+  margin-right: 1em;
+}

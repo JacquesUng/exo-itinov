@@ -11,10 +11,15 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+.action-button,
 .nav-button,
 .header {
   background-color: #159985;
-  color: white;
+  color: white !important;
+}
+
+.cancel-button {
+  background-color: lightgray;
 }
 
 .negative-amount {
@@ -27,4 +32,8 @@ body {
 
 .withdraw-button {
   margin-right: 1em !important;
+}
+
+.error-message {
+  color: red;
 }

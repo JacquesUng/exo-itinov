@@ -1,0 +1,15 @@
+<div>
+  <div class="validation-message">{{ data.message }}</div>
+  <div class="dialog-footer">
+    <button
+      mat-raised-button
+      class="action-button"
+      (click)="onClickOnConfirm()"
+    >
+      Confirmer
+    </button>
+    <button mat-raised-button class="cancel-button" (click)="onClickOnCancel()">
+      Annuler
+    </button>
+  </div>
+</div>

@@ -39,10 +39,10 @@ export class OperationService {
     accountId: number,
     limit: number = 10
   ): Promise<Operation[]> {
-    const operationCollection = db.operationTable
+    return db.operationTable
       .where({ accountId })
-      .limit(limit);
-    return await operationCollection.toArray();
+      .reverse()
+      .sortBy('creationDate');
   }
 
   async performWithdrawal(accountId: number, amount: number): Promise<number> {

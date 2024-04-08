@@ -1,0 +1,28 @@
+.withdraw-wrapper {
+  padding: 2em 0;
+}
+
+mat-card-content {
+  padding: 2em;
+}
+
+.account-balance-value {
+  margin-left: 0.5em;
+}
+
+.withraw-selected-account {
+  align-items: center;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+mat-card-footer {
+  align-items: center;
+  display: flex;
+  justify-content: space-evenly;
+  padding: 2em 0;
+}
+
+.amount-field > .mat-form-field-wrapper {
+  padding-bottom: 0 !important;
+}

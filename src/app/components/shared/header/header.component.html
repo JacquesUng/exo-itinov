@@ -1,7 +1,13 @@
 <div class="header">
   <h1>ITINOV BANK</h1>
   <div class="header-navigation">
-    <button mat-button class="withdraw-button">Retrait</button>
-    <button mat-button>Virement</button>
+    <button
+      mat-button
+      class="withdraw-button nav-button"
+      (click)="onClickOnWithdraw()"
+    >
+      Retrait
+    </button>
+    <button mat-button class="nav-button">Virement</button>
   </div>
 </div>

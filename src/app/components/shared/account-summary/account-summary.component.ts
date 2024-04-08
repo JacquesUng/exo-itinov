@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Account } from 'src/app/models/account.model';
 import { Operation } from 'src/app/models/operation.model';
 import { OperationService } from 'src/app/services/operation.service';
@@ -15,6 +16,7 @@ export class AccountSummaryComponent implements OnInit {
 
   constructor(
     protected operationService: OperationService,
+    protected router: Router,
     protected utils: UtilsService
   ) {}
 
@@ -32,5 +34,12 @@ export class AccountSummaryComponent implements OnInit {
 
   isNegative(amount: number): boolean {
     return this.utils.isNegative(amount);
+  }
+
+  onClickOnWithdraw(): void {
+    // this.router.navigateByUrl('withdraw');
+    this.router.navigate(['withdraw'], {
+      queryParams: { accountId: this.account.id },
+    });
   }
 }

@@ -123,5 +123,8 @@
       }
     }
   },
-  "defaultProject": "exo-itinov"
+  "defaultProject": "exo-itinov",
+  "cli": {
+    "analytics": false
+  }
 }
