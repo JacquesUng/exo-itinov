@@ -1,0 +1,46 @@
+<div class="account-header">
+  <h4 class="account-name">{{ account.name }}</h4>
+  <div class="account-balance">
+    <span>Solde :</span>
+    <span
+      [ngClass]="{
+        'negative-amount': isNegative(account.balance),
+        'positive-amount': !isNegative(account.balance)
+      }"
+      class="account-balance-value"
+      >{{ account.balance }} €</span
+    >
+  </div>
+  <div class="account-actions">
+    <button mat-raised-button type="button" class="nav-button withdraw-button">
+      Retrait
+    </button>
+    <button mat-raised-button type="button" class="nav-button">Virement</button>
+  </div>
+</div>
+
+<div>
+  <mat-accordion>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>Opérations</mat-panel-title>
+      </mat-expansion-panel-header>
+      <div>
+        <div *ngFor="let operation of operations" class="operation-row">
+          <span class="operation-other-account-name">{{
+            operation.otherAccountName
+          }}</span>
+          <span
+            class="operation-amount"
+            [ngClass]="{
+              'negative-amount': isNegative(operation.amount),
+              'positive-amount': !isNegative(operation.amount)
+            }"
+            >{{ operation.amount }} €</span
+          >
+          <span class="operation-type">{{ operation.type }}</span>
+        </div>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

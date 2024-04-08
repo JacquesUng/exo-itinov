@@ -1,0 +1,44 @@
+.account-card {
+  margin-bottom: 0.5em;
+  padding: 1em;
+  margin-bottom: 2em;
+}
+
+.account-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1em;
+}
+
+.account-name {
+  width: 40%;
+}
+
+.account-balance {
+  display: flex;
+  align-items: center;
+  width: 20%;
+}
+
+.account-balance-value {
+  margin-left: 0.5em;
+}
+
+.operation-row {
+  border-bottom: 0.01em solid grey;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1em;
+}
+
+.operation-other-account-name {
+  width: 50%;
+}
+
+.operation-type {
+  width: 25%;
+}
+
+.operation-amount {
+  width: 25%;
+}
