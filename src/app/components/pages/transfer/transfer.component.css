@@ -1,0 +1,28 @@
+.transfer-wrapper {
+  padding: 2em 0;
+}
+
+mat-card-content {
+  padding: 2em;
+}
+
+.accounts-selection {
+  display: flex;
+  justify-content: space-around;
+}
+
+.account-from-area,
+.account-to-area {
+  width: 50%;
+}
+
+.account-balance-value {
+  margin-left: 0.5em;
+}
+
+mat-card-footer {
+  align-items: center;
+  display: flex;
+  justify-content: space-evenly;
+  padding: 2em 0;
+}

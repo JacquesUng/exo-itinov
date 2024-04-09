@@ -5,17 +5,18 @@ import { Account } from 'src/app/models/account.model';
 import { Client } from 'src/app/models/client.model';
 import { AccountService } from 'src/app/services/account.service';
 import { ClientService } from 'src/app/services/client.service';
+import { OperationService } from 'src/app/services/operation.service';
 import { UtilsService } from 'src/app/services/utils.service';
 import { ValidationModalComponent } from '../../shared/validation-modal/validation-modal.component';
-import { OperationService } from 'src/app/services/operation.service';
 
 @Component({
-  selector: 'app-withdraw',
-  templateUrl: './withdraw.component.html',
-  styleUrls: ['./withdraw.component.css'],
+  selector: 'app-transfer',
+  templateUrl: './transfer.component.html',
+  styleUrls: ['./transfer.component.css'],
 })
-export class WithdrawComponent implements OnInit {
-  account?: Account;
+export class TransferComponent implements OnInit {
+  accountFrom?: Account;
+  accountTo?: Account;
   client?: Client;
   accounts: Account[] = [];
   amount: string = '';
@@ -32,19 +33,19 @@ export class WithdrawComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.loadAccount();
+    this.loadAccountFrom();
     this.loadClient().then(() => {
       this.loadAccounts(this.client.id);
     });
   }
 
-  private loadAccount(): void {
+  private loadAccountFrom(): void {
     this.route.queryParams.subscribe((params: Params) => {
       const accountIdString = params['accountId'];
       if (accountIdString) {
         const accountId = Number(accountIdString);
         this.accountService.getById(accountId).then((account: Account) => {
-          this.account = account;
+          this.accountFrom = account;
         });
       }
     });
@@ -75,18 +76,18 @@ export class WithdrawComponent implements OnInit {
 
     // On contrôle que le découvert ne sera pas dépassé
     if (
-      this.account.balance - Number(this.amount) <
-      -this.account.maxOverdraft
+      this.accountFrom.balance - Number(this.amount) <
+      -this.accountFrom.maxOverdraft
     ) {
       this.overdraftExceeded = true;
     } else {
       this.overdraftExceeded = false;
       const dialogRef = this.dialog.open(ValidationModalComponent, {
         data: {
-          message: `Voulez vous retirer ${
-            this.amount
-          } € ?\n Le nouveau solde du compte ${this.account.name} sera de ${
-            this.account.balance - Number(this.amount)
+          message: `Voulez vous transférer ${this.amount} € au compte ${
+            this.accountTo.name
+          } ?\n Le nouveau solde du compte ${this.accountFrom.name} sera de ${
+            this.accountFrom.balance - Number(this.amount)
           } €.`,
         },
         width: '600px',
@@ -94,7 +95,11 @@ export class WithdrawComponent implements OnInit {
       dialogRef.afterClosed().subscribe((result: boolean) => {
         if (result) {
           this.operationService
-            .performWithdrawal(this.account.id, Number(this.amount))
+            .performTransfer(
+              this.accountFrom.id,
+              this.accountTo.id,
+              Number(this.amount)
+            )
             .then(() => {
               this.router.navigateByUrl('dashboard');
             });
@@ -113,7 +118,9 @@ export class WithdrawComponent implements OnInit {
 
   get validationIsDisabled(): boolean {
     return (
-      !this.account ||
+      !this.accountFrom ||
+      !this.accountTo ||
+      this.accountFrom?.id === this.accountTo?.id ||
       !this.isAPositiveNumber(this.amount) ||
       this.amount === ''
     );

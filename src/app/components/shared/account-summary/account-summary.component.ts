@@ -28,7 +28,7 @@ export class AccountSummaryComponent implements OnInit {
     this.operationService
       .getByAccountId(accountId)
       .then((value: Operation[]) => {
-        this.operations = value;
+        this.operations = value.slice(0, 10);
       });
   }
 
@@ -37,8 +37,13 @@ export class AccountSummaryComponent implements OnInit {
   }
 
   onClickOnWithdraw(): void {
-    // this.router.navigateByUrl('withdraw');
     this.router.navigate(['withdraw'], {
+      queryParams: { accountId: this.account.id },
+    });
+  }
+
+  onClickOnTransfer(): void {
+    this.router.navigate(['transfer'], {
       queryParams: { accountId: this.account.id },
     });
   }

@@ -1,0 +1,116 @@
+<div class="transfer-wrapper">
+  <mat-card>
+    <mat-card-header>
+      <button
+        mat-raised-button
+        type="button"
+        class="cancel-button"
+        (click)="onClickOnDashboard()"
+      >
+        Dashboard
+      </button>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div class="accounts-selection">
+        <div class="account-from-area">
+          <div>
+            <mat-form-field>
+              <mat-label>Sélectionnez un compte</mat-label>
+              <mat-select
+                [(value)]="accountFrom"
+                [compareWith]="accountComparisonFunction"
+              >
+                <mat-option
+                  *ngFor="let accountOption of accounts"
+                  [value]="accountOption"
+                >
+                  {{ accountOption.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div *ngIf="accountFrom" class="selected-account-from">
+            <h4 class="account-name">{{ accountFrom.name }}</h4>
+            <div class="account-balance">
+              <span>Solde :</span>
+              <span
+                [ngClass]="{
+                  'negative-amount': isNegative(accountFrom.balance),
+                  'positive-amount': !isNegative(accountFrom.balance)
+                }"
+                class="account-balance-value"
+                >{{ accountFrom.balance }} €</span
+              >
+            </div>
+          </div>
+        </div>
+
+        <div class="account-to-area">
+          <div>
+            <mat-form-field>
+              <mat-label>Sélectionnez un compte</mat-label>
+              <mat-select
+                [(value)]="accountTo"
+                [compareWith]="accountComparisonFunction"
+              >
+                <mat-option
+                  *ngFor="let accountOption of accounts"
+                  [value]="accountOption"
+                >
+                  {{ accountOption.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div *ngIf="accountTo" class="selected-account-to">
+            <h4 class="account-name">{{ accountTo.name }}</h4>
+            <div class="account-balance">
+              <span>Solde :</span>
+              <span
+                [ngClass]="{
+                  'negative-amount': isNegative(accountTo.balance),
+                  'positive-amount': !isNegative(accountTo.balance)
+                }"
+                class="account-balance-value"
+                >{{ accountTo.balance }} €</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+
+    <mat-card-footer>
+      <div>
+        <mat-form-field class="amount-field">
+          <mat-label>Entrez un montant (€)</mat-label>
+          <input
+            matInput
+            [value]="amount"
+            (keyup)="onChangeAmountField($event)"
+          />
+        </mat-form-field>
+        <div *ngIf="!isAPositiveNumber(amount)" class="error-message">
+          Vous devez saisir une valeur numérique positive
+        </div>
+        <div *ngIf="overdraftExceeded && accountFrom" class="error-message">
+          Vous n'êtes pas autorisé à transférer {{ amount }} € car votre
+          découvert maximal est de {{ accountFrom.maxOverdraft }} €
+        </div>
+      </div>
+
+      <button
+        mat-raised-button
+        type="button"
+        class="action-button"
+        [disabled]="validationIsDisabled"
+        (click)="onClickOnValidate()"
+      >
+        Valider
+      </button>
+    </mat-card-footer>
+  </mat-card>
+</div>

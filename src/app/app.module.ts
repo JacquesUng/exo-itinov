@@ -18,6 +18,7 @@ import { AccountSummaryComponent } from './components/shared/account-summary/acc
 import { HeaderComponent } from './components/shared/header/header.component';
 import { WithdrawComponent } from './components/pages/withdraw/withdraw.component';
 import { ValidationModalComponent } from './components/shared/validation-modal/validation-modal.component';
+import { TransferComponent } from './components/pages/transfer/transfer.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { ValidationModalComponent } from './components/shared/validation-modal/v
     HeaderComponent,
     WithdrawComponent,
     ValidationModalComponent,
+    TransferComponent,
   ],
   imports: [
     AppRoutingModule,

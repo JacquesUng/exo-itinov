@@ -14,4 +14,8 @@ export class HeaderComponent implements OnInit {
   onClickOnWithdraw(): void {
     this.router.navigateByUrl('withdraw');
   }
+
+  onClickOnTransfer(): void {
+    this.router.navigateByUrl('transfer');
+  }
 }
