@@ -107,11 +107,15 @@ export class WithdrawComponent implements OnInit {
     return this.utils.isNegative(amount);
   }
 
-  isANumber(value: string) {
-    return this.utils.isANumber(value);
+  isAPositiveNumber(value: string) {
+    return this.utils.isANumber(value) && Number(value) >= 0;
   }
 
   get validationIsDisabled(): boolean {
-    return !this.account || !this.isANumber(this.amount) || this.amount === '';
+    return (
+      !this.account ||
+      !this.isAPositiveNumber(this.amount) ||
+      this.amount === ''
+    );
   }
 }

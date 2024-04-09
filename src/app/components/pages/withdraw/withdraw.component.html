@@ -57,8 +57,8 @@
             (keyup)="onChangeAmountField($event)"
           />
         </mat-form-field>
-        <div *ngIf="!isANumber(amount)" class="error-message">
-          Vous devez saisir une valeur numérique
+        <div *ngIf="!isAPositiveNumber(amount)" class="error-message">
+          Vous devez saisir une valeur numérique positive
         </div>
         <div *ngIf="overdraftExceeded && account" class="error-message">
           Vous n'êtes pas autorisé à retirer {{ amount }} € car votre découvert
